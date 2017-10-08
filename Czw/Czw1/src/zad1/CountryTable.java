@@ -1,14 +1,18 @@
 package zad1;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.*;
+import java.awt.*;
 import java.io.*;
+import java.text.*;
 import java.util.*;
 
 class CountryTable extends JTable {
+    private int flagIndex;
+    private int dateOfModifyIndex;
+    private int populationIndex;
     private ArrayList<ArrayList<Serializable>> countries = new ArrayList<>();
     private ArrayList<String> columnsName = new ArrayList<>();
-    private int populationIndex;
 
     public CountryTable(String path) {
         try {
@@ -20,17 +24,26 @@ class CountryTable extends JTable {
                     String[] tmp = sc.nextLine().split("\t");
                     columnsName.addAll(Arrays.asList(tmp));
                     populationIndex = columnsName.indexOf("Population");
+                    dateOfModifyIndex = columnsName.indexOf("Modification Date");
+                    flagIndex = columnsName.indexOf("Flag");
                     first = false;
                 } else {
                     String[] tmp = sc.nextLine().split("\t");
                     ArrayList<Serializable> columns = new ArrayList<>(columnsName.size());
-                    for(int i = 0; i < tmp.length; i++)
-                        if (i == populationIndex) columns.add(Integer.parseInt(tmp[i]));
-                        else columns.add(tmp[i]);
+                    for (int i = 0; i < tmp.length; i++) {
+                        if (i == populationIndex) {
+                            columns.add(Integer.parseInt(tmp[i]));
+                        } else if (i == flagIndex) {
+                            columns.add(new ImageIcon(tmp[i]));
+                        } else {
+                            columns.add(tmp[i]);
+                        }
+                    }
+                    columns.add("");
+                    columns.add("");
                     countries.add(columns);
                 }
             }
-            System.out.println(columnsName);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
             e.printStackTrace();
@@ -38,7 +51,19 @@ class CountryTable extends JTable {
     }
 
     JTable create() {
-        return new JTable(new MyTableModel());
+        JTable jt = new JTable(new MyTableModel());
+        jt.setDefaultRenderer(Integer.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setForeground(((Integer) value) > 20_000_000 ? Color.RED : Color.BLACK);
+                return c;
+            }
+        });
+
+        jt.setPreferredScrollableViewportSize(jt.getPreferredSize());
+
+        return jt;
     }
 
     class MyTableModel extends AbstractTableModel {
@@ -60,13 +85,21 @@ class CountryTable extends JTable {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            return countries.get(rowIndex).get(columnIndex);
+            if(columnIndex < countries.get(rowIndex).size())
+                return countries.get(rowIndex).get(columnIndex);
+            else
+                return null;
         }
 
         @Override
-		public Class getColumnClass(int c) {
-			return getValueAt(0, c).getClass();
-		}
+        public Class getColumnClass(int c) {
+            if (c == populationIndex)
+                return Integer.class;
+            else if (c == flagIndex)
+                return ImageIcon.class;
+            else
+                return String.class;
+        }
 
         @Override
         public boolean isCellEditable(int row, int col) {
@@ -76,8 +109,9 @@ class CountryTable extends JTable {
         @Override
         public void setValueAt(Object value, int row, int col) {
             countries.get(row).set(col, (Serializable) value);
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            countries.get(row).set(dateOfModifyIndex, df.format(new Date()));
             fireTableCellUpdated(row, col);
         }
-
     }
 }

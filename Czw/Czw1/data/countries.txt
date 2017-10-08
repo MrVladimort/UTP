@@ -1,4 +1,4 @@
-Country	Capital City	Population
+Country	Capital City	Population	Flag	Modification Date
 Abkhazia	Sukhumi	31056997
 Afghanistan	Kabul	3581655
 Akrotiri and Dhekelia	Episkopi Cantonment	32930091
@@ -13,8 +13,8 @@ Argentina	Buenos Aires	71891
 Armenia	Yerevan	20264082
 Aruba	Oranjestad	8192880
 Ascension Island	Georgetown	7961619
-Australia	Canberra	303770
-Austria	Vienna	698585
+Australia	Canberra	303770	data/australia.gif
+Austria	Vienna	698585	data/austria.gif
 Azerbaijan	Baku	147365352
 Bahamas	Nassau	279912
 Bahrain	Manama	10293011
