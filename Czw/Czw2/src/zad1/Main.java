@@ -16,14 +16,14 @@ public class Main {
     }
 
     public List<Integer> test1(List<Integer> src) {
-        Selector<Integer> sel = new Selector<Integer>() {
+        Selector<Integer> sel = new Selector<>() {
             @Override
             public boolean select(Integer arg) {
                 return arg > 10;
             }
         };
 
-        Mapper<Integer, Integer> map = new Mapper<Integer, Integer>() {
+        Mapper<Integer, Integer> map = new Mapper<>() {
             @Override
             public Integer map(Integer arg) {
                 return arg + 10;
@@ -35,14 +35,14 @@ public class Main {
     }
 
     public List<Integer> test2(List<String> src) {
-        Selector<String> sel = new Selector<String>() {
+        Selector<String> sel = new Selector<>() {
             @Override
             public boolean select(String arg) {
                 return arg.length() < 3;
             }
         };
 
-        Mapper<String, Integer> map = new Mapper<String, Integer>() {
+        Mapper<String, Integer> map = new Mapper<>() {
             @Override
             public Integer map(String arg) {
                 return arg.length() + 10;
