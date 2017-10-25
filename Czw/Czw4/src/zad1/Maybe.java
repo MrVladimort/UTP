@@ -1,47 +1,55 @@
 package zad1;
 
+import java.util.NoSuchElementException;
 import java.util.function.*;
 
 public class Maybe<T> {
-	
-	public Maybe(){
-		
+	private T value;
+
+	private Maybe(T value){
+		this.value = value;
 	}
 	
-	public static <T>Maybe<T> of(T s) {
-		// TODO Auto-generated method stub
-		return null;
+	static <T>Maybe<T> of(T s) {
+		return new Maybe<>(s);
 	}
 
-	public void ifPresent(Consumer<T> cons) {
-		// TODO Auto-generated method stub
+	void ifPresent(Consumer<T> cons) {
+		if(isPresent())
+			cons.accept(this.value);
 	}
 
-	public <V>Maybe<V> map(Function<T,V> func) {
-		// TODO Auto-generated method stub
-		return null;
+	<V>Maybe<V> map(Function<T,V> func) {
+		if(isPresent())
+			return new Maybe<>(func.apply(this.value));
+		else
+			return new Maybe<>(null);
 	}
 
-	public T get() {
-		// TODO Auto-generated method stub
-		return null;
+	T get() {
+		if(!isPresent())
+			throw new NoSuchElementException("  maybe is empty");
+		return this.value;
 	}
 	
-	public boolean isPresent(){
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public T orElse(T defVal) {
-		// TODO Auto-generated method stub
-		return null;
+	private boolean isPresent(){
+		return this.value != null;
 	}
 
-	public Maybe<T> filter(Predicate<T> pre) {
-		// TODO Auto-generated method stub
-		return null;
+	T orElse(T defVal) {
+		if(isPresent())
+			return this.value;
+		else
+			return defVal;
+	}
+
+	Maybe<T> filter(Predicate<T> pre) {
+		if(!pre.test(this.value))
+			return new Maybe<>(null);
+		return this;
 	}
 	
-	
-	
+	public String toString(){
+		return isPresent() ? "Maybe has value " + this.value : "Maybe is empty";
+	}
 }
