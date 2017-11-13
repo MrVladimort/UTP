@@ -12,14 +12,7 @@ import java.util.function.*;
 
 public class Main {
   public static void main(String[] args) {
-    /*
-     *  definicja operacji w postaci lambda-wyrażeń:
-     *  - flines - zwraca listę wierszy z pliku tekstowego
-     *  - join - łączy napisy z listy (zwraca napis połączonych ze sobą elementów listy napisów)
-     *  - collectInts - zwraca listę liczb całkowitych zawartych w napisie
-     *  - sum - zwraca sumę elmentów listy liczb całkowitych
-     */
-	  Function <String, List<String>> flines = path -> {
+	  Converter <String, List<String>> flines = path -> {
 			ArrayList<String> kek = new ArrayList<String>();
 			Scanner sc = new Scanner(new FileReader(path));
 			while(sc.hasNextLine())
@@ -28,16 +21,16 @@ public class Main {
 	
 			return kek;
 	  };
-		
-	  Function <List<String>, String> join = list -> {
+
+	  Converter <List<String>, String> join = list -> {
 			String kek = "";
 			for(String tmp : list){
 				kek += tmp;
 			}
 			return kek;
 		};
-				
-		Function<String, List<Integer>> collectInts = text -> {
+
+	  Converter<String, List<Integer>> collectInts = text -> {
 			ArrayList<Integer> kek = new ArrayList<Integer>();
 			String tmp = text.replaceAll("\\D+", " ");
 			Scanner sc = new Scanner(tmp);
@@ -46,8 +39,8 @@ public class Main {
 			sc.close();
 			return kek;
 		};
-		
-		Function<List<Integer>, Integer> sum = ints -> {
+
+	  Converter<List<Integer>, Integer> sum = ints -> {
 			int kek = 0;
 			for(Integer tmp : ints){
 				kek+=tmp;
@@ -74,7 +67,7 @@ public class Main {
 
     // Przy powierzchownej implementacji
     // następujący fragment:
-    slistConv.convertBy(collectInts, sum); // [1] spowoduje powstanie wyjątku ClassCastException
+//    slistConv.convertBy(collectInts, sum); // [1] spowoduje powstanie wyjątku ClassCastException
 
     // Zadania badawcze:
     // jak temu zaradzić w fazie kompilacji programu, tak by kompilator oznaczył [1] jako błąd

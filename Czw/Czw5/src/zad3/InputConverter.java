@@ -8,11 +8,12 @@ public class InputConverter<T> {
 	public InputConverter(T value){
 		this.value = value;
 	}
-	
-	<V>V convertBy(Function...arg){
+	<S, V>S convertBy(Function<T, V> kompilator, Function...arg){
 		Object kek = value;
+		kek = kompilator.apply((T) kek);
+
 		for(Function func : arg)
 			kek = func.apply(kek);
-		return (V) kek;
+		return (S) kek;
 	}
 }
