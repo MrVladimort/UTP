@@ -11,15 +11,19 @@ public class Dictionary {
             Scanner sc = new Scanner(new FileReader(filePath));
             while (sc.hasNextLine()){
                 String [] dictWord = sc.nextLine().split("=");
-                if (dictWord.length == 2)
-                    if (this.dict.containsKey(dictWord[0].trim())) {
-                        this.dict.get(dictWord[0].trim()).add(dictWord[1].trim());
-                    } else {
-                        List<String> tmp = new ArrayList<>();
-                        tmp.add(dictWord[1].trim());
-                        this.dict.put(dictWord[0].trim(), tmp);
-                    }
+                if (dictWord.length == 2) {
+                    String haslo = dictWord[0].trim(), definicja = dictWord[1].trim();
+                    if (!haslo.equals("") && !definicja.equals(""))
+                        if (this.dict.containsKey(haslo))
+                            this.dict.get(haslo).add(definicja);
+                        else {
+                            List<String> tmp = new ArrayList<>();
+                            tmp.add(definicja);
+                            this.dict.put(haslo, tmp);
+                        }
+                }
             }
+            System.out.println(this.dict);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
