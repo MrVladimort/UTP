@@ -7,7 +7,7 @@ package zad1;
 import java.io.*;
 import java.util.*;
 
-class CustomersPurchaseSortFind {
+public class CustomersPurchaseSortFind {
     List<Purchase> purchases = new ArrayList<>();
 
     void readFile(String fname) {
@@ -29,8 +29,7 @@ class CustomersPurchaseSortFind {
     }
 
     void showSortedBy(String command) {
-        Purchase[] sortedPurchases = new Purchase[this.purchases.size()];
-        this.purchases.toArray(sortedPurchases);
+        Purchase[] sortedPurchases = this.purchases.toArray(new Purchase[this.purchases.size()]);
         System.out.println(command);
         switch (command) {
             case "Nazwiska":
@@ -41,7 +40,7 @@ class CustomersPurchaseSortFind {
             case "Koszty":
                 Arrays.sort(sortedPurchases, Purchase.kosztComparator);
                 for (Purchase purchase : sortedPurchases)
-                    System.out.println(purchase + " (" + purchase.cena * purchase.ilosc + ")");
+                    System.out.println(purchase + " (koszt: " + purchase.cena * purchase.ilosc + ")");
                 break;
         }
         System.out.println();
