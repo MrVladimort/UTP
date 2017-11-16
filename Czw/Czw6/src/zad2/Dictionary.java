@@ -10,8 +10,15 @@ public class Dictionary {
         try {
             Scanner sc = new Scanner(new FileReader(filePath));
             while (sc.hasNextLine()){
-                String line = sc.nextLine();
-                this.dict.put()
+                String [] dictWord = sc.nextLine().split("=");
+                if (dictWord.length == 2)
+                    if (this.dict.containsKey(dictWord[0].trim())) {
+                        this.dict.get(dictWord[0].trim()).add(dictWord[1].trim());
+                    } else {
+                        List<String> tmp = new ArrayList<>();
+                        tmp.add(dictWord[1].trim());
+                        this.dict.put(dictWord[0].trim(), tmp);
+                    }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
