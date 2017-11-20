@@ -23,9 +23,9 @@ public class Dictionary {
         if (this.dict.containsKey(haslo)) {
             List<String> tmp = new ArrayList<>(this.dict.get(haslo));
             tmp.sort(Comparator.naturalOrder());
-//            for (int i = 0; i < tmp.size(); i++)
-//                tmp.set(i, i+1 + ": " + tmp.get(i));
-            tmp.add(0, haslo);
+            for (int i = 0; i < tmp.size(); i++)
+                tmp.set(i, i+1 + ": " + tmp.get(i));
+//            tmp.add(0, haslo);
             return tmp;
         } else {
             return new ArrayList<>();
@@ -47,8 +47,8 @@ public class Dictionary {
 
     void delete(String haslo, int definicja) {
         if (this.dict.containsKey(haslo)) {
-            if (this.dict.get(haslo).size() > definicja) {
-                String del = this.lookup(haslo).get(definicja);
+            if (this.dict.get(haslo).size() >= definicja) {
+                String del = this.lookup(haslo).get(definicja-1).split(":")[1].trim();
                 this.dict.get(haslo).remove(del);
             }
         }
