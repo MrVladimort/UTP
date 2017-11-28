@@ -76,7 +76,7 @@ public class Main {
         System.out.println(cres);
 
         // collect i join
-        XList<String> j1 = cres.collect(list -> list.join());
+        XList<String> j1 = cres.collect(XList::join);
         System.out.println(j1.join(" "));
         XList<String> j2 = cres.collect(list -> list.join("-"));
         System.out.println(j2.join(" "));

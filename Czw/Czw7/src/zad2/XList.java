@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class XList<T> extends ArrayList<T> {
-
     @SafeVarargs
     public XList(T... args) {
 //        this.list = new ArrayList<>();
@@ -80,31 +79,54 @@ public class XList<T> extends ArrayList<T> {
     }
 
     public XList<XList<T>> combine() {
-        XList<XList<T>> combines = new XList(this);
+        XList<XList<T>> combines = new XList<>();
+        ArrayList<List> tmp = (ArrayList<List>) this;
+
+        int size = 1;
+        for (int i = 0; i < this.size(); i++){
+            size = size * tmp.get(i).size();
+        }
+        for (int i = 0; i < size; i++){
+            combines.add(new XList<>());
+        }
+
+        int semiSize = 1;
+        for (List aTmp : tmp) {
+            int position = 0;
+            for (int i = 0, j = 0; i < size; i++, j++) {
+                if (j == semiSize) {
+                    position++;
+                    j = 0;
+                }
+
+                if (aTmp.size() <= position)
+                    position = 0;
+
+                ((List) combines.get(i)).add(aTmp.get(position));
+            }
+            semiSize = semiSize * aTmp.size();
+        }
 
         return combines;
     }
 
-    public <R> XList<R> collect(Function<T, R> args){
-        ArrayList<T> tmp = new ArrayList<>(this);
-
-        System.out.println(args.apply(tmp.get(0)));
-
-        return new XList(this);
+    public <R>XList<R> collect(Function<T,R> args){
+        XList<R> collected = new XList<>();
+        for (T t : this) collected.add(args.apply(t));
+        return collected;
     }
 
     public String join(String string) {
-        return this
+        return new XList<>(this)
                 .stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(string));
     }
 
     public String join() {
-        return this
+        return new XList<>(this)
                 .stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(""));
     }
-
 }
