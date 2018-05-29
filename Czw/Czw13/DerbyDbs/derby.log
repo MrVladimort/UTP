@@ -1,0 +1,19 @@
+----------------------------------------------------------------
+Sun Jan 21 21:37:00 CET 2018:
+ Производится загрузка Derby версии The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): экземпляр a816c00e-0161-1a70-4399-000001be544e
+в каталоге базы данных E:\Workspace\IntelliJIDEA\UTP\Czw\Czw13\DerbyDbs\ksidb sun.misc.Launcher$AppClassLoader@63947c6b 
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_152-b16
+user.dir=E:\Workspace\IntelliJIDEA\UTP\Czw\Czw13
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=E:\Workspace\IntelliJIDEA\UTP\Czw\Czw13\DerbyDbs
+Запущен загрузчик классов базы данных - derby.database.classpath=''
+----------------------------------------------------------------
+Sun Jan 21 21:37:01 CET 2018: Shutting down Derby engine
+----------------------------------------------------------------
+Sun Jan 21 21:37:01 CET 2018:
+Завершается работа экземпляра a816c00e-0161-1a70-4399-000001be544e
+----------------------------------------------------------------

@@ -13,8 +13,8 @@ Statement stmt;
 Cre1()  {
    Connection con = null;
    try {
-	   con = DriverManager.getConnection("jdbc:derby:Z:/DerbyDbs/ksidb");
-	   con.setAutoCommit(false);
+       con = DriverManager.getConnection("jdbc:derby:E:/Workspace/IntelliJIDEA/UTP/Czw/Czw13/DerbyDbs/ksidb");
+       con.setAutoCommit(false);
 	   stmt = con.createStatement();
    } catch (Exception exc)  {
      System.out.println(exc);

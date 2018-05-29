@@ -152,7 +152,7 @@ void createHistoryList()  {
 
 
 public static void main(String[] args) {
- String url = "jdbc:derby://localhost/ksidb";
+ String url = "jdbc:derby:E:/Workspace/IntelliJIDEA/UTP/Czw/Czw13/DerbyDbs/ksidb";
  String uid = "pies";
  String pwd = "kuba";
  new TestSQL(url, uid, pwd);

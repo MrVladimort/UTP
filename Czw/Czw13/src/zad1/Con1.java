@@ -9,7 +9,7 @@ public class Con1  {
 	DatabaseMetaData md;
 	
 	 public Con1() throws SQLException  {
-		 con = DriverManager.getConnection("jdbc:derby:Z:/DerbyDbs/ksidb");
+		 con = DriverManager.getConnection("jdbc:derby:E:/Workspace/IntelliJIDEA/UTP/Czw/Czw13/DerbyDbs/ksidb");
 		 md = con.getMetaData();
 		 reportInfo();
 	 }
